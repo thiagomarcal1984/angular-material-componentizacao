@@ -139,3 +139,43 @@ Sirva a aplicação:
 ```bash
 ng serve
 ```
+
+## Entendendo o SCSS
+O SCSS permite o aninhamento das declarações das classes CSS. Isso individualiza melhos os estilos dos componentes.
+
+Arquivo `shared\header\header.component.scss`:
+```css
+.app-header {
+  button {
+    margin: 0 16px;
+  }
+
+  .spacer {
+    flex: 1 1 auto;
+  }
+
+  .mat-toolbar {
+    background-color: black;
+    color: white;
+    padding: 0 256px;
+  }
+
+  .mat-mdc-outlined-button:not(:disabled) {
+    border-color: white;
+  }
+}
+```
+
+Arquivo `shared\header\header.component.html`:
+```html
+<header class="app-header">
+  <mat-toolbar color="primary">
+    <img src="assets/imagens/logo.png" alt="Logo da aplicação Jornada.">
+    <span class="spacer"></span>
+    <button mat-button>Vender milhas</button>
+    <button mat-button>Sobre</button>
+    <button mat-raised-button color="primary">CADASTRE-SE</button>
+    <button mat-stroked-button>LOGIN</button>
+  </mat-toolbar>
+</header>
+```
