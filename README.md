@@ -72,3 +72,70 @@ Os arquivos `angular.json`, `index.html`, `styles.scss` e `app/app.module.ts` ta
 - `index.html` atualizou as referências às folhas de estilo do Angular Material;
 -  `styles.scss` passou por poucas mudanças no seu estilo, aumentando a altura do body e do HTML para 100% e mudando a fonte para Roboto;
 - `app.module.ts` passou a incluir uma biblioteca de animação, a `BrowserAnimationsModule`.
+
+## Primeiro componente
+Vamos usar uma toolbar e um button.
+https://v16.material.angular.io/components/toolbar/overview
+https://v16.material.angular.io/components/button/overview
+
+Inicialmente vamos importar a toolbar e os botões para dentro `app.module.ts`:
+```js
+// Resto do código
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatButtonModule } from '@angular/material/button';
+
+@NgModule({
+  declarations: [
+    // Resto do código
+  ],
+  imports: [
+    // Resto do código
+    MatToolbarModule,
+    MatButtonModule,
+  ],
+  // Resto do código
+})
+export class AppModule { }
+```
+> Repare que importamos o `MatToolbarModule`, e não `MatToolbar`.
+> Idem para `MatButtonModule`: não importamos o `MatButton`.
+
+Vamos mudar o HTML de `header.component.html`:
+```HTML
+<mat-toolbar color="primary">
+  <img src="assets/imagens/logo.png" alt="Logo da aplicação Jornada.">
+  <span class="example-spacer"></span>
+  <button mat-button>Vender milhas</button>
+  <button mat-button>Sobre</button>
+  <button mat-raised-button color="primary">CADASTRE-SE</button>
+  <button mat-stroked-button>LOGIN</button>
+</mat-toolbar>
+```
+> Note o elemento da classe `example-spacer`: ele será definido na folha de estilos e vai servir para mover os demais elementos para a extrema direita do cabeçalho.
+
+Mudando o estilo CSS para deixar o fundo preto em `shared\header\header.component.scss`: 
+```CSS
+.example-spacer {
+  flex: 1 1 auto;
+}
+
+.mat-toolbar {
+  background-color: black;
+  color: white;
+}
+```
+
+Fizemos 3 coisas: 
+1. Importamos os módulos dos componentes do Angular Material;
+2. Modificamos a estrutura do componente `header`; e
+3. Formatamos o componente `header` com SCSS.
+
+Agora, vamos invocar o componente `header` no componente `app.component.html`:
+```HTML
+<app-header></app-header>
+```
+
+Sirva a aplicação:
+```bash
+ng serve
+```
