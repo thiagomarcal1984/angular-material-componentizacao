@@ -179,3 +179,41 @@ Arquivo `shared\header\header.component.html`:
   </mat-toolbar>
 </header>
 ```
+# Criando componentes reutilizáveis
+## Banner
+
+Passo 1: Arquivo HTML (`banner.component.html`)
+```HTML
+<figure class="banner">
+  <img src="{{ src }}" alt="{{ alt }}">
+</figure>
+```
+> Note que vamos interpolar as variáveis `src` e `alt`. Elas serão declaradas como `Input` no arquivo `banner.component.ts`.
+
+Passo 2: Arquivo SCSS (`banner.component.scss`)
+```CSS
+figure {
+  margin: 0;
+  img{
+    max-width: 100%;
+  }
+}
+```
+
+Passo 3: Arquivo Type Script (`banner.component.ts`)
+```TypeScript
+import { Component, Input } from '@angular/core';
+// Resto do código
+
+export class BannerComponent {
+  @Input() src : string = ''
+  @Input() alt : string = ''
+}
+```
+> Se não preposicionarmos o comando `@Input()`, o componente HTML não vai conseguir fazer a interpolação das variáveis.
+
+Passo 4: Chamar o componente  (`app.component.html`)
+```HTML
+<app-header></app-header>
+<app-banner src="assets/imagens/banner-homepage.png" alt="Banner da Aplicação Jornada"></app-banner>
+```
