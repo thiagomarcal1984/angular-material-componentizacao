@@ -425,3 +425,39 @@ Uso do componente `<app-card-busca>` no arquivo `home.component.html`
   <app-card-busca></app-card-busca>
 </app-container>
 ```
+## Alinhando os cards
+A aplicação do CSS é que vai fazer o alinhamento dos cards:
+
+```HTML
+<!-- src\app\pages\home\home.component.html -->
+<app-banner src="assets/imagens/banner-homepage.png" alt="Banner da Aplicação Jornada"></app-banner>
+<app-container>
+  <h2>Promoções</h2>
+  <div class="card-wrapper">
+    <app-card-busca></app-card-busca>
+    <app-card-busca></app-card-busca>
+    <app-card-busca></app-card-busca>
+    <app-card-busca></app-card-busca>
+  </div>
+  <h2>Depoimentos</h2>
+</app-container>
+```
+
+```CSS
+/* src\app\pages\home\home.component.scss */
+.card-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  row-gap: 16px;
+  margin-bottom: 40px;
+}
+```
+
+Inserção do footer:
+```HTML
+<!-- src\app\app.component.html -->
+<app-header></app-header>
+<router-outlet></router-outlet>
+<app-footer></app-footer>
+```
