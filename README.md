@@ -297,3 +297,43 @@ Passo 2: edite o componente `app.component.html` para inserir o ponto de inserç
 <!-- <router-outlet> é o ponto onde o componente será inserido em função da rota informada. -->
 <router-outlet></router-outlet>
 ```
+
+## Criando um card reaproveitável
+
+```TypeScript
+// src\app\shared\card\card.component.ts
+import { Component, Input } from '@angular/core';
+
+@Component({
+  selector: 'app-card',
+  templateUrl: './card.component.html',
+  styleUrls: ['./card.component.scss']
+})
+export class CardComponent {
+  @Input() variant: 'primary' | 'secondary' = 'primary'
+}
+```
+> Note o campo de entrada na variávei `variant`: ela contém um tipo união cujo valor padrão é `primary`.
+
+```HTML
+<!-- src\app\shared\card\card.component.html  -->
+<div class="card" [ngClass]="variant">
+  <ng-content></ng-content>
+</div>
+```
+> Como a diretiva `[ngClass]` é util aqui?
+
+```CSS
+.card {
+  padding: 24px;
+  &.primary {
+    background: #FEF7FF;
+    border: 1px solid #CAC4D0;
+    border-radius: 12px;
+  }
+  &.secondary {
+    background: #F5F5F5;
+    border-radius: 16px;
+  }
+}
+```
