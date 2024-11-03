@@ -337,3 +337,91 @@ export class CardComponent {
   }
 }
 ```
+
+## Card de busca
+```bash
+ng generate component shared/card-busca
+# ou...
+ng g c shared/card-busca
+```
+
+> Lembrando que o arquivo `app.module.ts` é atualizado sempre que um novo componente é criado usando a CLI.
+
+```HTML
+<!-- src\app\shared\card-busca\card-busca.component.html -->
+<mat-card class="card-busca">
+  <img mat-card-image
+    src="assets/imagens/Veneza.png" alt="Imagem de Veneza">
+  <mat-card-content>
+    <ul>
+      <li>Veneza</li>
+      <li>R$ 500</li>
+    </ul>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-flat-button color="primary">VER DETALHES</button>
+  </mat-card-actions>
+</mat-card>
+```
+
+```CSS
+/* src\app\shared\card-busca\card-busca.component.scss */
+.card-busca {
+  max-width: 320px;
+  background-color: #FEF7FF;
+  border-radius: 12px;
+  button {
+    width: 100%;
+    margin: 0 16px 48px;
+  }
+  ul {
+    list-style: none;
+    padding: 0;
+    li {
+      margin: 12px;
+      font-weight: 400;
+      font-size: 24px;
+      line-height: 32px;
+      color: #1D1B20;
+      text-align: center;
+    }
+  }
+}
+```
+
+```TypeScript
+// src\app\app.module.ts
+
+import { NgModule } from '@angular/core';
+// Resto do código
+// Import do módulo MatCardModule, pra uso do componente MatCardComponent no HTML
+import { CardBuscaComponent } from './shared/card-busca/card-busca.component';
+import { MatCardModule } from '@angular/material/card'
+
+@NgModule({
+  declarations: [
+    // Resto do código
+    HomeComponent,
+    CardBuscaComponent
+  ],
+  imports: [
+    // Resto do código
+    MatCardModule,
+  ],
+  // Resto do código
+})
+export class AppModule { }
+```
+
+Uso do componente `<app-card-busca>` no arquivo `home.component.html`
+```HTML
+<!-- src\app\pages\home\home.component.html -->
+<app-banner src="assets/imagens/banner-homepage.png" alt="Banner da Aplicação Jornada"></app-banner>
+<app-container>
+  <h1>HOME</h1>
+  <app-card-busca></app-card-busca>
+  <app-card-busca></app-card-busca>
+  <app-card-busca></app-card-busca>
+  <app-card-busca></app-card-busca>
+</app-container>
+```
