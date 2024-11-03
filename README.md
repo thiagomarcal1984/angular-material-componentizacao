@@ -461,3 +461,89 @@ Inserção do footer:
 <router-outlet></router-outlet>
 <app-footer></app-footer>
 ```
+
+## Desafio: crie o card de depoimento
+```bash
+ng generate component shared/card-depoimento
+# ou...
+ng g c shared/card-depoimento
+```
+> Lembrando que o arquivo `app.module.ts` é atualizado sempre que um novo componente é criado usando a CLI.
+
+Editando o arquivo `card-depoimento.component.ts`:
+```TypeScript
+// src\app\shared\card-depoimento\card-depoimento.component.ts
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-card-depoimento',
+  templateUrl: './card-depoimento.component.html',
+  styleUrls: ['./card-depoimento.component.scss']
+})
+export class CardDepoimentoComponent {
+  // Note as atribuições às variáveis 'depoimento' e 'autoria'.
+  depoimento: string = `
+    Recomendo fortemente a agência de viagens Jornada.
+    Eles oferecem um serviço personalizado e de alta qualidade
+    que excedeu minhas expectativas em minha última viagem.
+  `
+  autoria: string = 'Mariana Faustino'
+}
+```
+
+```HTML
+<!-- src\app\shared\card-depoimento\card-depoimento.component.html -->
+<mat-card class="depoimento">
+    <mat-card-content>
+      <img src="assets/imagens/avatar3.png" alt="Avatar da pessoa autora do depoimento">
+      <ul>
+        <li>{{ depoimento }}</li>
+        <li><strong>{{ autoria }}</strong></li>
+      </ul>
+    </mat-card-content>
+</mat-card>
+```
+
+```CSS
+/* src\app\shared\card-depoimento\card-depoimento.component.scss */
+.depoimento {
+  max-width: 320px;
+  background-color: #FEF7FF;
+  border: none;
+  img {
+    max-width: 56px;
+    max-height: 56px;
+    margin-top: 16px;
+  }
+  ul {
+    padding: 0;
+    list-style: none;
+    li {
+      font-style: normal;
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 24px;
+    }
+  }
+  mat-card-content {
+    display: flex;
+    align-items: start;
+    gap: 16px;
+  }
+}
+```
+
+Invocando o componente `<app-card-depoimento>` em `home.component.html`:
+```HTML
+<!-- src\app\pages\home\home.component.html -->
+<app-banner src="assets/imagens/banner-homepage.png" alt="Banner da Aplicação Jornada"></app-banner>
+<app-container>
+  <!-- Resto do código -->
+  <h2>Depoimentos</h2>
+  <div class="card-wrapper">
+    <app-card-depoimento></app-card-depoimento>
+    <app-card-depoimento></app-card-depoimento>
+    <app-card-depoimento></app-card-depoimento>
+  </div>
+</app-container>
+```
