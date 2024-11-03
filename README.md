@@ -217,3 +217,83 @@ Passo 4: Chamar o componente  (`app.component.html`)
 <app-header></app-header>
 <app-banner src="assets/imagens/banner-homepage.png" alt="Banner da Aplicação Jornada"></app-banner>
 ```
+
+## Criando um container
+A criação de um container genérico é feito da seguinte forma: 
+
+Passo 1: Geração automática via CLI.
+```bash
+ng generate component shared/container
+# ou...
+ng g c shared/container
+```
+> Lembrando que o arquivo `app.module.ts` é atualizado sempre que um novo componente é criado usando a CLI.
+
+
+Passo 2: Inclusão da lacuna (placeholder) com o elemento `ng-content` no HTML do container.
+```HTML
+<!-- Arquivo app\shared\container\container.component.html -->
+<ng-content></ng-content>
+```
+
+Passo 3: Definição do estilo SCSS no elemento 
+```CSS
+:host {
+  display: block;
+  margin: 0 auto; // Centraliza o elemento selecionado.
+  max-width: 1048px;
+  width: 90%;
+}
+```
+
+> Os componentes de página vão reaproveitar o componente container, como veremos a seguir.
+
+
+A criação da componente/página `home` se dará da seguinte forma: 
+
+Passo 1: Geração automática via CLI.
+
+```bash
+ng generate component pages/home
+# ou...
+ng g c pages/home
+```
+> Lembrando que o arquivo `app.module.ts` é atualizado sempre que um novo componente é criado usando a CLI.
+
+
+Passo 2: Edição do HTML com reúso do componente `<app-container>`.
+```HTML
+<app-banner src="assets/imagens/banner-homepage.png" alt="Banner da Aplicação Jornada"></app-banner>
+<app-container>
+  <h1>HOME</h1>
+</app-container>
+```
+
+Agora vamos configurar o roteamento dos componentes.
+
+Passo 1: edite o arquivo `app-routing.module.ts`:
+```typescript
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import { HomeComponent } from './pages/home/home.component';
+
+const routes: Routes = [
+  {
+    path: '', // Rota raiz.
+    component: HomeComponent
+  }
+];
+
+@NgModule({
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
+})
+export class AppRoutingModule { }
+```
+
+Passo 2: edite o componente `app.component.html` para inserir o ponto de inserção do componente que vai variar em função da rota.
+```html
+<app-header></app-header>
+<!-- <router-outlet> é o ponto onde o componente será inserido em função da rota informada. -->
+<router-outlet></router-outlet>
+```
