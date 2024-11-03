@@ -547,3 +547,100 @@ Invocando o componente `<app-card-depoimento>` em `home.component.html`:
   </div>
 </app-container>
 ```
+
+# Criando o formulário de busca
+## Botões e chips do Material
+Vamos criar o componente `<app-form-busca>`:
+```bash
+ng generate component shared/form-busca
+# ou...
+ng g c shared/form-busca
+```
+> Lembrando que o arquivo `app.module.ts` é atualizado sempre que um novo componente é criado usando a CLI.
+
+HTML do componente:
+```HTML
+<!-- src\app\shared\form-busca\form-busca.component.html -->
+<app-card variant="secondary" class="form-busca">
+  <form>
+    <h2>Passagens</h2>
+    <div class="flex-container">
+      <mat-button-toggle-group aria-label="Tipo de passsagens">
+        <mat-button-toggle>
+          <mat-icon>check</mat-icon>
+          IDA E VOLTA
+        </mat-button-toggle>
+        <mat-button-toggle>
+          SOMENTE IDA
+        </mat-button-toggle>
+      </mat-button-toggle-group>
+      <mat-chip-listbox aria-label="Seleção de passagem">
+        <mat-chip-option selected>1 adulto</mat-chip-option>
+        <mat-chip-option>Econômica</mat-chip-option>
+      </mat-chip-listbox>
+    </div>
+  </form>
+</app-card>
+```
+> Perceba que por enquanto os campos do formulário não possuem nomes ou valores-padrão.
+
+Certifique-se que para cada componente do Angular Material haja um módulo correspondente:
+```TypeScript
+import { NgModule } from '@angular/core';
+// Resto do código
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatIconModule } from '@angular/material/icon';
+import { MatChipsModule } from '@angular/material/chips';
+
+@NgModule({
+  declarations: [
+    // Resto do código
+    CardDepoimentoComponent,
+    FormBuscaComponent
+  ],
+  imports: [
+    // Resto do código
+    MatButtonToggleModule,
+    MatIconModule,
+    MatChipsModule,
+  ],
+  // Resto do código
+})
+export class AppModule { }
+```
+
+Aplicação do CSS no componente: 
+```CSS
+/* src\app\shared\form-busca\form-busca.component.scss */
+.form-busca {
+  margin: 40px 0;
+  display: block;
+  .flex-container {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 16px 0;
+  }
+  .input-container {
+    margin-bottom: -1.25em;
+  }
+  .mat-button-toggle-checked {
+    background-color: #F7F2FA;
+  }
+  h2 {
+    font-size: 32px;
+    margin-bottom: 20px;
+  }
+}
+```
+
+Exiba o componente recém-criado em `home.component.html`:
+```HTML
+<!-- src\app\pages\home\home.component.html -->
+<app-banner src="assets/imagens/banner-homepage.png" alt="Banner da Aplicação Jornada"></app-banner>
+<app-container>
+  <h2>Promoções</h2>
+  <app-form-busca></app-form-busca>
+  <!-- Resto do código -->
+</app-container>
+```
