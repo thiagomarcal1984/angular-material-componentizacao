@@ -644,3 +644,61 @@ Exiba o componente recém-criado em `home.component.html`:
   <!-- Resto do código -->
 </app-container>
 ```
+
+## Campos do formulário
+Usaremos os módulos `MatFormFieldModule` e `MatInputFieldModule`. O componente `<mat-form-field>` depende do componente `MatInputField`, embora o último componente não apareça no HTML.
+
+```HTML
+<!-- src\app\shared\form-busca\form-busca.component.html -->
+<app-card variant="secondary" class="form-busca">
+  <form>
+    <h2>Passagens</h2>
+    <!-- Resto do código -->
+    <div class="flex-container">
+      <mat-form-field class="input-container" appearance="outline">
+        <mat-icon matPrefix>
+          flight_takeoff
+        </mat-icon>
+        <mat-label>Origem</mat-label>
+        <input matInput placeholder="Origem">
+        <!-- Note o atributo matInput aqui -->
+        <mat-icon matSuffix>search</mat-icon>
+      </mat-form-field>
+      <button mat-button>
+        <mat-icon>sync_alt</mat-icon>
+      </button>
+      <mat-form-field class="input-container" appearance="outline">
+        <mat-icon matPrefix>
+          flight_land
+        </mat-icon>
+        <mat-label>Destino</mat-label>
+        <input matInput placeholder="Destino">
+        <!-- Note o atributo matInput aqui -->
+        <mat-icon matSuffix>search</mat-icon>
+      </mat-form-field>
+    </div>
+  </form>
+</app-card>
+```
+
+Inclusões dos módulos em `app.module.ts`:
+```TypeScript
+// src\app\app.module.ts
+import { NgModule } from '@angular/core';
+
+// Resto do código
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+
+
+@NgModule({
+  // Resto do código
+  imports: [
+    // Resto do código
+    MatFormFieldModule,
+    MatInputModule,
+  ],
+  // Resto do código
+})
+export class AppModule { }
+```
