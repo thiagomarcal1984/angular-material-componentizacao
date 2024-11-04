@@ -752,3 +752,76 @@ import { MatNativeDateModule } from '@angular/material/core';
 })
 export class AppModule { }
 ```
+# Criando o modal
+## Acessando o modal
+Criando um componente `modal` na pasta `shared`:
+
+```bash
+ng generate component shared/modal
+# ou
+ng g c shared/modal
+```
+> Lembrando que o arquivo `app.module.ts` é atualizado sempre que um novo componente é criado usando a CLI.
+
+Edição do formulário de busca para conter o comando para abrir o modal: 
+```HTML
+<!-- src\app\shared\form-busca\form-busca.component.html -->
+<app-card variant="secondary" class="form-busca">
+  <form>
+    <h2>Passagens</h2>
+    <div class="flex-container">
+      <!-- Resto do código -->
+      <mat-chip-listbox  (click)="openDialog()" aria-label="Seleção de passagem">
+        <mat-chip-option selected>1 adulto</mat-chip-option>
+        <mat-chip-option>Econômica</mat-chip-option>
+      </mat-chip-listbox>
+      <!-- Resto do código -->
+    </div>
+  </form>
+</app-card>
+```
+
+Lógica de exibição do modal
+```TypeScript
+// src\app\shared\form-busca\form-busca.component.ts
+import { Component } from '@angular/core';
+import { ModalComponent } from '../modal/modal.component'; // Componente recém-criado.
+import { MatDialog } from '@angular/material/dialog'; // Reúso do componente do Angular Material.
+
+@Component({
+  selector: 'app-form-busca',
+  templateUrl: './form-busca.component.html',
+  styleUrls: ['./form-busca.component.scss']
+})
+export class FormBuscaComponent {
+  constructor(public dialog: MatDialog) {} // O componente é inserido no construtor para uso em openDialog.
+
+  openDialog() {
+    this.dialog.open(ModalComponent); // Abre o diálogo cujo conteúdo será o recém criado ModalComponent.
+  }
+}
+```
+
+Conteúdo de `app.module.ts` após as modificações:
+```TypeScript
+import { NgModule } from '@angular/core';
+// Resto do código
+import { ModalComponent } from './shared/modal/modal.component'; // Componente recém-criado.
+import { MatDialogModule } from '@angular/material/dialog'; // Reúso do componente do Angular Material.
+
+
+@NgModule({
+  declarations: [
+    // Resto do código
+    FormBuscaComponent,
+    ModalComponent
+  ],
+  imports: [
+    // Resto do código
+    MatDialogModule,
+  ],
+  providers: [],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
+```
