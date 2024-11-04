@@ -702,3 +702,53 @@ import { MatInputModule } from '@angular/material/input';
 })
 export class AppModule { }
 ```
+
+## Campos para data
+Usaremos os módulos `MatDatepickerModule` e `MatNativeDateModule`. O componente `<mat-datepicker>` depende de `MatNativeDateModule`, embora o último módulo não apareça no HTML.
+
+```HTML
+<!-- src\app\shared\form-busca\form-busca.component.html -->
+<app-card variant="secondary" class="form-busca">
+  <form>
+    <!-- Resto do código -->
+    <div class="flex-container">
+      <!-- Resto do código -->
+      <mat-form-field class="input-container" appearance="outline">
+        <mat-label>Data de ida</mat-label>
+        <input matInput [matDatepicker]="ida">
+        <mat-datepicker-toggle matIconSuffix [for]="ida"></mat-datepicker-toggle>
+        <mat-datepicker #ida></mat-datepicker>
+      </mat-form-field>
+      <mat-form-field class="input-container" appearance="outline">
+        <mat-label>Data da volta</mat-label>
+        <input matInput [matDatepicker]="volta">
+        <mat-datepicker-toggle matIconSuffix [for]="volta"></mat-datepicker-toggle>
+        <mat-datepicker #volta></mat-datepicker>
+      </mat-form-field>
+      <button mat-flat-button color="primary">BUSCAR</button>
+    </div>
+  </form>
+</app-card>
+```
+
+Inclusões dos módulos em `app.module.ts`:
+```TypeScript
+// src\app\app.module.ts
+import { NgModule } from '@angular/core';
+
+// Resto do código
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+
+
+@NgModule({
+  // Resto do código
+  imports: [
+    // Resto do código
+    MatDatepickerModule,
+    MatNativeDateModule,
+  ],
+  // Resto do código
+})
+export class AppModule { }
+```
