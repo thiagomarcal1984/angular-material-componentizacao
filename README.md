@@ -975,3 +975,88 @@ export class FormBuscaComponent {
   }
 }
 ```
+## Desafio: componentizando os botões de incremento e decremento
+Primeiro: criar o componente na CLI:
+
+```bash
+ng generate component shared/botao-controle
+# ou
+ng g c shared/botao-controle
+```
+> Lembrando que o arquivo `app.module.ts` é atualizado sempre que um novo componente é criado usando a CLI.
+
+Editando o TS do componente para conter a variável contadora e as funções de incremento e decremento:
+```TypeScript
+// src\app\shared\botao-controle\botao-controle.component.ts
+import { Component, Input } from '@angular/core';
+
+@Component({
+  selector: 'app-botao-controle',
+  templateUrl: './botao-controle.component.html',
+  styleUrls: ['./botao-controle.component.scss']
+})
+export class BotaoControleComponent {
+  // operacao é do tipo união cujas opções são apenas 'incremento' e 'decremento':
+  @Input() operacao : 'incremento' | 'decremento' = 'incremento'
+  @Input() src = ''
+  @Input() alt = ''
+}
+```
+
+Estrutura HTML do componente:
+```HTML
+<!-- src\app\shared\botao-controle\botao-controle.component.html -->
+<button [ngClass]="operacao" mat-mini-fab>
+  <!-- Compare as 3 variáveis do ts do componente com este HTML. -->
+  <img
+    [src]="operacao === 'incremento' ? 'assets/icones/do_not_disturb_on.png' : 'assets/icones/add_circle.png' "
+    [alt]="operacao === 'incremento' ? 'Operador de adição' : 'Operador de subtração' "
+  />
+</button>
+```
+
+Modificação do HTML do componente modal (remover as duplicidades quando não havia o componente reutilizável):
+```HTML
+<section class="modal">
+  <h1 mat-dialog-title>Viajante</h1>
+  <div mat-dialog-content>
+    <div class="selecao-idade">
+      <ul>
+        <li><b>Adultos</b></li>
+        <li>(Acima de 12 anos)</li>
+        <li>
+          <!-- Uso do controle para incremento -->
+          <app-botao-controle operacao="incremento"/>
+          <span style="margin: 15px">1</span>
+          <!-- Uso do controle para decremento -->
+          <app-botao-controle operacao="decremento"/>
+        </li>
+      </ul>
+      <ul>
+        <li><b>Crianças</b></li>
+        <li>(Entre 2 e 11 anos)</li>
+        <li>
+          <!-- Uso do controle para incremento -->
+          <app-botao-controle operacao="incremento"/>
+          <span style="margin: 15px">1</span>
+          <!-- Uso do controle para decremento -->
+          <app-botao-controle operacao="decremento"/>
+        </li>
+      </ul>
+      <ul>
+        <li><b>Bebês</b></li>
+        <li>(Até 2 anos)</li>
+        <li>
+          <!-- Uso do controle para incremento -->
+          <app-botao-controle operacao="incremento"/>
+          <span style="margin: 15px">1</span>
+          <!-- Uso do controle para decremento -->
+          <app-botao-controle operacao="decremento"/>
+        </li>
+      </ul>
+    </div>
+    <!-- Resto do código -->
+  </div>
+  <!-- Resto do código -->
+</section>
+```
