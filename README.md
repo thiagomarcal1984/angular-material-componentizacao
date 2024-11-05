@@ -825,3 +825,153 @@ import { MatDialogModule } from '@angular/material/dialog'; // Reúso do compone
 })
 export class AppModule { }
 ```
+
+## Adicionando elementos
+Modificando o HTML do componente modal:
+```HTML
+<!-- src\app\shared\modal\modal.component.html -->
+<section class="modal">
+  <h1 mat-dialog-title>Viajante</h1>
+  <div mat-dialog-content>
+    <div class="selecao-idade">
+      <ul>
+        <li><b>Adultos</b></li>
+        <li>(Acima de 12 anos)</li>
+        <li>
+          <button class="decremento" mat-mini-fab>
+            <img
+              src="assets/icones/do_not_disturb_on.png"
+              alt="Operador de subtração"
+            >
+          </button>
+          <span>1</span>
+          <button class="incremento" mat-mini-fab>
+            <img
+              src="assets/icones/add_circle.png"
+              alt="Operador de adição"
+            >
+          </button>
+        </li>
+      </ul>
+      <ul>
+        <li><b>Crianças</b></li>
+        <li>(Entre 2 e 11 anos)</li>
+        <li>
+          <button class="decremento" mat-mini-fab>
+            <img
+              src="assets/icones/do_not_disturb_on.png"
+              alt="Operador de subtração"
+            >
+          </button>
+          <span>1</span>
+          <button class="incremento" mat-mini-fab>
+            <img
+              src="assets/icones/add_circle.png"
+              alt="Operador de adição"
+            >
+          </button>
+        </li>
+      </ul>
+      <ul>
+        <li><b>Bebês</b></li>
+        <li>(Até 2 anos)</li>
+        <li>
+          <button class="decremento" mat-mini-fab>
+            <img
+              src="assets/icones/do_not_disturb_on.png"
+              alt="Operador de subtração"
+            >
+          </button>
+          <span>1</span>
+          <button class="incremento" mat-mini-fab>
+            <img
+              src="assets/icones/add_circle.png"
+              alt="Operador de adição"
+            >
+          </button>
+        </li>
+      </ul>
+    </div>
+    <div class="categoria">
+      <h2>Categoria</h2>
+      <mat-chip-listbox aria-label="Categoria">
+        <mat-chip-option>Executiva</mat-chip-option>
+        <mat-chip-option selected>Econômica</mat-chip-option>
+      </mat-chip-listbox>
+    </div>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button mat-dialog-close>Close</button>
+  </div>
+</section>
+```
+
+Formatando o modal:
+```CSS
+/* src\app\shared\modal\modal.component.scss */
+.modal {
+  border: 1px solid #1D1B20;
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  h1 {
+    font-size: 32px;
+    padding: 12px;
+  }
+  .selecao-idade {
+    display: flex;
+    justify-content: space-between;
+    ul {
+      list-style-type: none;
+      margin: 0 0 0 -1em;
+      padding: 0;
+      li {
+        margin-bottom: 10px;
+        margin: 12px;
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 20px;
+        color: #1D1B20;
+        text-align: start;
+        padding: 0;
+        span {
+          vertical-align: middle;
+          padding: 0 12px;
+        }
+      }
+    }
+  }
+  .selecao-categoria {
+    margin-top: 32px;
+    color: #1D1B20;
+  }
+  .modal-actions {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+    button {
+      margin: 0 8px;
+      width: 100%;
+    }
+  }
+}
+```
+Invocando o modal a partir do componente `form-busca`:
+```TypeScript
+import { Component } from '@angular/core';
+import { ModalComponent } from '../modal/modal.component';
+import { MatDialog } from '@angular/material/dialog';
+
+@Component({
+  // Resto do código.
+})
+export class FormBuscaComponent {
+  constructor(public dialog: MatDialog) {}
+
+  openDialog() {
+    this.dialog.open(ModalComponent, {
+      width: '50%',
+    });
+  }
+}
+```
